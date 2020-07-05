@@ -1,0 +1,31 @@
+-------------------------Dokerfile-------https://www.youtube.com/watch?v=L2UkQ2CND68----------------------------
+FROM node:12.18.0
+
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+
+RUN npm install -g @angular/cli@ 9.1.8
+
+COPY ./usr/src/app
+
+CMD ng serve --host 0.0.0.0 --port 4200
+------------------------TERMINAL--------------------------------------
+docker build -t angular-docker-image .
+
+docker run -it -v ${PWD}:/usr/src/app -p 4200:4200 angular-docker-image
+
+----------------------------docker-compose.yml----https://www.youtube.com/watch?v=a49H1r4ZOHs--------------------
+version: '3.5'
+services:
+	angular-service:
+		container_name: angular-service-container
+		build:./angular
+		volumes:
+		  - './angular:/usr/src/app'
+		port:
+		  - '4500:4500'
+		  
+----------------------TERMINAL-----------------------------------------
+	docker-compose build angular-service
+	
+	docker-compose run angular-service
